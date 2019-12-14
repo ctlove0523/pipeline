@@ -23,7 +23,6 @@ public class PipeLine {
         pipes.forEach(new Consumer<Pipe>() {
             @Override
             public void accept(Pipe pipe) {
-
             }
         });
     }
