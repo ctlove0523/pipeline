@@ -1,0 +1,14 @@
+<pipeline>
+    <pipe name="first pipe">
+        <task name="first task" id="task-1" class="io.github.ctlove0523.pattern.pipeline.pipe.tasks.RdsTask">
+        </task>
+        <task name="second task" id="task-2" class="io.github.ctlove0523.pattern.pipeline.pipe.tasks.CseTask">
+        </task>
+    </pipe>
+    <pipe name="second pipe">
+        <task name="third task" id="task-3" class="io.github.ctlove0523.pattern.pipeline.pipe.tasks.VpcTask">
+        </task>
+        <task name="fourth task" id="task-4" class="io.github.ctlove0523.pattern.pipeline.pipe.tasks.TenantTask">
+        </task>
+    </pipe>
+</pipeline>

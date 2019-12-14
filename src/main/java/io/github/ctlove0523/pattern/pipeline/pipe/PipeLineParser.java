@@ -5,11 +5,30 @@ import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Optional;
 
 public class PipeLineParser {
-    public static PipeLine parse(File file) throws IOException, SAXException {
+    public static Optional<PipeLine> parse(File file) {
         Digester digester = createDigester();
-        return digester.parse(file);
+        PipeLine pipeLine = null;
+        try {
+            pipeLine = digester.parse(file);
+        } catch (IOException | SAXException e) {
+            e.printStackTrace();
+        }
+        return Optional.ofNullable(pipeLine);
+    }
+
+    public static Optional<PipeLine> parse(InputStream is) {
+        Digester digester = createDigester();
+        PipeLine pipeLine = null;
+        try {
+            pipeLine = digester.parse(is);
+        } catch (IOException | SAXException e) {
+            e.printStackTrace();
+        }
+        return Optional.ofNullable(pipeLine);
     }
 
     private static Digester createDigester() {
