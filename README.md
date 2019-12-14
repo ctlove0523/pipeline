@@ -1,2 +1,2 @@
-# pipeline
-设计模式：pipeline模式
+# Design Pattern: pipeline
+基于Java实现设计模式中的pipeline模式，pipeline模式的实现和作业目前遇到的业务场景匹配并做出了适当的修改。
