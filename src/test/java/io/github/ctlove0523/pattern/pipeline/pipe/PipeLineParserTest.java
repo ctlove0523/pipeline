@@ -8,6 +8,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 @SpringBootTest
 public class PipeLineParserTest {
@@ -24,6 +25,12 @@ public class PipeLineParserTest {
         for (Pipe pipe : pipes) {
             List<AbstractTask> tasks = pipe.getTasks();
             Assertions.assertEquals(2, tasks.size());
+            tasks.forEach(new Consumer<AbstractTask>() {
+                @Override
+                public void accept(AbstractTask task) {
+                    System.out.println(task.getTaskName());
+                }
+            });
         }
 
 
