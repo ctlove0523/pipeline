@@ -39,6 +39,7 @@ public class PipeLineParser {
         String pipeLinePattern = "pipeline";
         digester.addObjectCreate(pipeLinePattern, PipeLine.class.getName());
         digester.addSetProperties(pipeLinePattern);
+        digester.addSetProperties(pipeLinePattern,"name","pipeLineName");
 
         String pipePattern = pipeLinePattern + "/pipe";
         digester.addObjectCreate(pipePattern, Pipe.class.getName());

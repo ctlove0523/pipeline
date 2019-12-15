@@ -1,12 +1,18 @@
 package io.github.ctlove0523.pattern.pipeline.pipe;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Getter
+@Setter
 public class PipeLine {
+    private String pipeLineName;
     private ExecutorService executor;
     private List<Pipe> pipes = new LinkedList<>();
 

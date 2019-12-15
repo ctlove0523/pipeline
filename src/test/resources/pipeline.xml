@@ -1,4 +1,4 @@
-<pipeline>
+<pipeline name="deploy pipeline">
     <pipe name="first pipe">
         <task name="first task" id="task-1" class="io.github.ctlove0523.pattern.pipeline.pipe.tasks.RdsTask">
         </task>
