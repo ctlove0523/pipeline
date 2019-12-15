@@ -1,5 +1,6 @@
-package io.github.ctlove0523.pattern.pipeline.pipe;
+package io.github.ctlove0523.pattern.pipeline.core.pipe;
 
+import io.github.ctlove0523.pattern.pipeline.core.tasks.BaseTask;
 import org.apache.commons.digester3.Digester;
 import org.xml.sax.SAXException;
 
@@ -45,6 +46,7 @@ public class PipeLineParser {
         digester.addObjectCreate(pipePattern, Pipe.class.getName());
         digester.addSetProperties(pipePattern);
         digester.addSetProperties(pipePattern, "name", "pipeName");
+        digester.addSetProperties(pipePattern, "priority", "priority");
         digester.addSetNext(pipePattern, "addPipe");
 
         String taskPatter = pipePattern + "/task";

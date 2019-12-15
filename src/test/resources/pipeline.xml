@@ -1,14 +1,14 @@
 <pipeline name="deploy pipeline">
-    <pipe name="first pipe">
-        <task name="first task" id="task-1" class="io.github.ctlove0523.pattern.pipeline.pipe.tasks.RdsTask">
+    <pipe name="first pipe" priority="1">
+        <task name="first task" id="task-1" class="io.github.ctlove0523.pattern.pipeline.core.tasks.RdsTask">
         </task>
-        <task name="second task" id="task-2" class="io.github.ctlove0523.pattern.pipeline.pipe.tasks.CseTask">
+        <task name="second task" id="task-2" class="io.github.ctlove0523.pattern.pipeline.core.tasks.CseTask">
         </task>
     </pipe>
-    <pipe name="second pipe">
-        <task name="third task" id="task-3" class="io.github.ctlove0523.pattern.pipeline.pipe.tasks.VpcTask">
+    <pipe name="second pipe" priority="2">
+        <task name="third task" id="task-3" class="io.github.ctlove0523.pattern.pipeline.core.tasks.VpcTask">
         </task>
-        <task name="fourth task" id="task-4" class="io.github.ctlove0523.pattern.pipeline.pipe.tasks.TenantTask">
+        <task name="fourth task" id="task-4" class="io.github.ctlove0523.pattern.pipeline.core.tasks.TenantTask">
         </task>
     </pipe>
 </pipeline>
