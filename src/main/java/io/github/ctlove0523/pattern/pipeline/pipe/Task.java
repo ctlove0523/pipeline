@@ -12,5 +12,5 @@ public interface Task {
 
     CompletableFuture<Map<Object,Object>> getTaskResult();
 
-    void process(TaskExecuteContext context,TaskInput input);
+    void process(TaskExecutionContext context, TaskInput input);
 }

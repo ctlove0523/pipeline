@@ -5,8 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.function.Consumer;
-import java.util.function.ToIntFunction;
 
 public class PipeLine {
     private ExecutorService executor;
@@ -19,13 +17,6 @@ public class PipeLine {
         this.executor = Executors.newFixedThreadPool(maxThreads);
     }
 
-    public void execute(TaskInput taskInput) {
-        pipes.forEach(new Consumer<Pipe>() {
-            @Override
-            public void accept(Pipe pipe) {
-            }
-        });
-    }
 
     public void addPipe(Pipe pipe) {
         pipes.add(pipe);
