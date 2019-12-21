@@ -1,6 +1,8 @@
 package io.github.ctlove0523.pattern.pipeline.core.pipe;
 
-import io.github.ctlove0523.pattern.pipeline.core.tasks.BaseTask;
+import io.github.ctlove0523.pattern.pipeline.core.deploy.DeployPipeImpl;
+import io.github.ctlove0523.pattern.pipeline.core.deploy.DeployPipelineImpl;
+import io.github.ctlove0523.pattern.pipeline.core.tasks.BaseTaskInfo;
 import org.apache.commons.digester3.Digester;
 import org.xml.sax.SAXException;
 
@@ -9,10 +11,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
 
+/**
+ * @author chentong
+ */
 public class PipeLineParser {
-    public static Optional<PipeLine> parse(File file) {
+    public static Optional<AbstractPipeLine> parse(File file) {
         Digester digester = createDigester();
-        PipeLine pipeLine = null;
+        AbstractPipeLine pipeLine = null;
         try {
             pipeLine = digester.parse(file);
         } catch (IOException | SAXException e) {
@@ -21,9 +26,9 @@ public class PipeLineParser {
         return Optional.ofNullable(pipeLine);
     }
 
-    public static Optional<PipeLine> parse(InputStream is) {
+    public static Optional<AbstractPipeLine> parse(InputStream is) {
         Digester digester = createDigester();
-        PipeLine pipeLine = null;
+        AbstractPipeLine pipeLine = null;
         try {
             pipeLine = digester.parse(is);
         } catch (IOException | SAXException e) {
@@ -37,20 +42,20 @@ public class PipeLineParser {
         digester.setValidating(false);
 
         // Configure the actions we will be using
-        String pipeLinePattern = "pipeline";
-        digester.addObjectCreate(pipeLinePattern, PipeLine.class.getName());
+        String pipeLinePattern = "deploy-pipeline";
+        digester.addObjectCreate(pipeLinePattern, DeployPipelineImpl.class.getName());
         digester.addSetProperties(pipeLinePattern);
         digester.addSetProperties(pipeLinePattern,"name","pipeLineName");
 
-        String pipePattern = pipeLinePattern + "/pipe";
-        digester.addObjectCreate(pipePattern, Pipe.class.getName());
+        String pipePattern = pipeLinePattern + "/deploy-pipe";
+        digester.addObjectCreate(pipePattern, DeployPipeImpl.class.getName());
         digester.addSetProperties(pipePattern);
         digester.addSetProperties(pipePattern, "name", "pipeName");
         digester.addSetProperties(pipePattern, "priority", "priority");
         digester.addSetNext(pipePattern, "addPipe");
 
         String taskPatter = pipePattern + "/task";
-        digester.addObjectCreate(taskPatter, BaseTask.class.getName());
+        digester.addObjectCreate(taskPatter, BaseTaskInfo.class.getName());
         digester.addSetProperties(taskPatter);
         digester.addSetProperties(taskPatter, "name", "taskName");
         digester.addSetProperties(taskPatter, "id", "taskId");

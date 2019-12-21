@@ -5,10 +5,11 @@ import lombok.Setter;
 
 /**
  * task基类，仅保持task最基本的信息
+ * @author chentong
  */
 @Getter
 @Setter
-public class BaseTask {
+public class BaseTaskInfo {
     private String taskName;
     private String taskId;
     private String taskClass;
