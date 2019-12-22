@@ -1,7 +1,8 @@
-package io.github.ctlove0523.pattern.pipeline.core.pipe;
+package io.github.ctlove0523.pattern.pipeline.core;
 
 import io.github.ctlove0523.pattern.pipeline.core.deploy.DeployPipeImpl;
 import io.github.ctlove0523.pattern.pipeline.core.deploy.DeployPipelineImpl;
+import io.github.ctlove0523.pattern.pipeline.core.pipeline.AbstractPipeLine;
 import io.github.ctlove0523.pattern.pipeline.core.tasks.BaseTaskInfo;
 import org.apache.commons.digester3.Digester;
 import org.xml.sax.SAXException;

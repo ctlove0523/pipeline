@@ -3,6 +3,7 @@ package io.github.ctlove0523.pattern.pipeline.core.pipe;
 import io.github.ctlove0523.pattern.pipeline.core.Lifecycle;
 import io.github.ctlove0523.pattern.pipeline.core.tasks.AbstractTask;
 import io.github.ctlove0523.pattern.pipeline.core.tasks.BaseTaskInfo;
+import io.github.ctlove0523.pattern.pipeline.core.tasks.Task;
 import io.github.ctlove0523.pattern.pipeline.utils.ExecutorUtils;
 import io.github.ctlove0523.pattern.pipeline.utils.SpringContextUtils;
 import lombok.Getter;
@@ -24,10 +25,10 @@ import java.util.stream.Collectors;
  */
 @Getter
 @Setter
-public abstract class AbstractPipe<IN, OUT> implements Comparable<AbstractPipe<IN, OUT>>, Lifecycle<IN, OUT> {
+public abstract class AbstractPipe<IN, OUT> implements Comparable<AbstractPipe<IN, OUT>>, Pipe<IN, OUT> {
     private String pipeName;
     private String priority;
-    private List<AbstractTask<IN, OUT>> tasks = new LinkedList<>();
+    private List<Task<IN, OUT>> tasks = new LinkedList<>();
     private Executor executor;
 
     @Override
@@ -108,11 +109,11 @@ public abstract class AbstractPipe<IN, OUT> implements Comparable<AbstractPipe<I
         tasks.remove(task);
     }
 
-    public List<AbstractTask> getTasks() {
+    public List<Task> getTasks() {
         return Collections.unmodifiableList(tasks);
     }
 
-    public void setTasks(List<AbstractTask<IN, OUT>> tasks) {
+    public void setTasks(List<Task<IN, OUT>> tasks) {
         this.tasks = tasks;
     }
 
@@ -122,6 +123,6 @@ public abstract class AbstractPipe<IN, OUT> implements Comparable<AbstractPipe<I
 
     @Override
     public int compareTo(AbstractPipe<IN, OUT> pipe) {
-        return this.priority.compareTo(pipe.getPriority());
+        return Integer.parseInt(this.priority) - Integer.parseInt(pipe.getPriority());
     }
 }

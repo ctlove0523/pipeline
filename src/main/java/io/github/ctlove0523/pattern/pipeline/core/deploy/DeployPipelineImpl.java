@@ -1,6 +1,6 @@
 package io.github.ctlove0523.pattern.pipeline.core.deploy;
 
-import io.github.ctlove0523.pattern.pipeline.core.pipe.AbstractPipeLine;
+import io.github.ctlove0523.pattern.pipeline.core.pipeline.AbstractPipeLine;
 
 /**
  * @author chentong
