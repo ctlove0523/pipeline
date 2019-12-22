@@ -33,6 +33,7 @@ public abstract class AbstractPipe<IN, OUT> implements Comparable<AbstractPipe<I
     @Override
     public void prepare() {
         this.executor = ExecutorUtils.newFixedThreadPool(tasks.size());
+        tasks.forEach(Lifecycle::prepare);
     }
 
     @Override
@@ -58,7 +59,18 @@ public abstract class AbstractPipe<IN, OUT> implements Comparable<AbstractPipe<I
 
     @Override
     public OUT retry(IN input) {
-        return start(input);
+        List<CompletableFuture<OUT>> futures = new ArrayList<>();
+        tasks.forEach(abstractTask -> futures.add(CompletableFuture.supplyAsync((Supplier<OUT>) () -> abstractTask.retry(input), executor)));
+        CompletableFuture<List<OUT>> future = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+                .thenApply(v -> futures.stream()
+                        .map(CompletableFuture::join).collect(Collectors.toList()));
+        List<OUT> outputs = new ArrayList<>();
+        try {
+            outputs.addAll(future.get());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return mergeOutput(outputs);
     }
 
     @Override

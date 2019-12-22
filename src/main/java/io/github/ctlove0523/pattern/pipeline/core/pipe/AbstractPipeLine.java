@@ -22,6 +22,7 @@ public abstract class AbstractPipeLine<IN, OUT> implements Lifecycle<IN,OUT> {
     @Override
     public void prepare() {
         Collections.sort(pipes);
+        pipes.forEach(Lifecycle::prepare);
     }
 
     @Override
@@ -42,7 +43,13 @@ public abstract class AbstractPipeLine<IN, OUT> implements Lifecycle<IN,OUT> {
 
     @Override
     public OUT retry(IN input) {
-        return start(input);
+        IN initInput = input;
+        OUT result = null;
+        for (AbstractPipe<IN, OUT> pipe : pipes) {
+            result = pipe.retry(initInput);
+            initInput = transform(result);
+        }
+        return result;
     }
 
     @Override

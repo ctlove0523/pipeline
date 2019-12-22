@@ -15,9 +15,9 @@ import java.util.Optional;
  * @author chentong
  */
 public class PipeLineParser {
-    public static Optional<AbstractPipeLine> parse(File file) {
+    public static Optional<AbstractPipeLine<?, ?>> parse(File file) {
         Digester digester = createDigester();
-        AbstractPipeLine pipeLine = null;
+        AbstractPipeLine<?, ?> pipeLine = null;
         try {
             pipeLine = digester.parse(file);
         } catch (IOException | SAXException e) {
@@ -45,7 +45,7 @@ public class PipeLineParser {
         String pipeLinePattern = "deploy-pipeline";
         digester.addObjectCreate(pipeLinePattern, DeployPipelineImpl.class.getName());
         digester.addSetProperties(pipeLinePattern);
-        digester.addSetProperties(pipeLinePattern,"name","pipeLineName");
+        digester.addSetProperties(pipeLinePattern, "name", "pipeLineName");
 
         String pipePattern = pipeLinePattern + "/deploy-pipe";
         digester.addObjectCreate(pipePattern, DeployPipeImpl.class.getName());
