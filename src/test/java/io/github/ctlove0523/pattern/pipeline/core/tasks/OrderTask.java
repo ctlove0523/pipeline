@@ -20,7 +20,7 @@ public class OrderTask extends AbstractTask<DeployInput, DeployOutput> {
 
     @Override
     public DeployOutput start(DeployInput input) {
-        stateEnum = StateEnum.STARTED;
+        stateEnum = StateEnum.UNPROCESSED;
         String userName = input.getProperty("user_name");
         String userPwd = input.getProperty("user_pwd");
         log.info("username = {},usepwd = {}", userName, userPwd);

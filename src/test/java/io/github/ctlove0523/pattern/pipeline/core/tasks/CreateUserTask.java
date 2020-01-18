@@ -2,7 +2,6 @@ package io.github.ctlove0523.pattern.pipeline.core.tasks;
 
 import io.github.ctlove0523.pattern.pipeline.core.deploy.DeployInput;
 import io.github.ctlove0523.pattern.pipeline.core.deploy.DeployOutput;
-import io.github.ctlove0523.pattern.pipeline.core.state.State;
 import io.github.ctlove0523.pattern.pipeline.core.state.StateEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -19,7 +18,7 @@ public class CreateUserTask extends AbstractTask<DeployInput, DeployOutput> {
 
     @Override
     public DeployOutput start(DeployInput input) {
-        stateEnum = StateEnum.STARTED;
+        stateEnum = StateEnum.UNPROCESSED;
         String pwd = input.getProperty("pwd");
         log.info("pwd is {}", pwd);
 
