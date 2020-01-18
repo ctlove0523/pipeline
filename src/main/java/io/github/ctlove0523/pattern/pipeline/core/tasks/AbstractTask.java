@@ -1,7 +1,5 @@
 package io.github.ctlove0523.pattern.pipeline.core.tasks;
 
-import io.github.ctlove0523.pattern.pipeline.core.Lifecycle;
-
 /**
  * 任务的抽象基类
  *

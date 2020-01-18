@@ -1,6 +1,7 @@
 package io.github.ctlove0523.pattern.pipeline.core.pipe;
 
 import io.github.ctlove0523.pattern.pipeline.core.Lifecycle;
+import io.github.ctlove0523.pattern.pipeline.core.state.StateEnum;
 import io.github.ctlove0523.pattern.pipeline.core.tasks.AbstractTask;
 import io.github.ctlove0523.pattern.pipeline.core.tasks.BaseTaskInfo;
 import io.github.ctlove0523.pattern.pipeline.core.tasks.Task;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -77,6 +79,13 @@ public abstract class AbstractPipe<IN, OUT> implements Comparable<AbstractPipe<I
     @Override
     public void rollback(IN input) {
         tasks.forEach(task -> task.rollback(input));
+    }
+
+    @Override
+    public StateEnum getState() {
+        List<Integer> states = new ArrayList<>(tasks.size());
+        tasks.forEach(task -> states.add(task.getState().getOrder()));
+        return null;
     }
 
     /**
