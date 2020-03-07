@@ -3,7 +3,7 @@ package io.github.ctlove0523.pattern.pipeline.core;
 /**
  * @author chentong
  */
-public interface Lifecycle<IN,OUT> {
+public interface Lifecycle<IN, OUT> {
 
     /**
      * 准备
@@ -12,6 +12,7 @@ public interface Lifecycle<IN,OUT> {
 
     /**
      * 启动
+     *
      * @param input 输入
      * @return 输出
      */
@@ -24,6 +25,7 @@ public interface Lifecycle<IN,OUT> {
 
     /**
      * 重试
+     *
      * @param input 输入
      * @return 输出
      */
@@ -31,6 +33,7 @@ public interface Lifecycle<IN,OUT> {
 
     /**
      * 回滚
+     *
      * @param input 输入
      */
     void rollback(IN input);

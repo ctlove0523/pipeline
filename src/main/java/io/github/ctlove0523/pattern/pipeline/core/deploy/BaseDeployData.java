@@ -1,7 +1,5 @@
 package io.github.ctlove0523.pattern.pipeline.core.deploy;
 
-import lombok.Setter;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,10 +8,10 @@ import java.util.Map;
  * @author chentong
  */
 public class BaseDeployData {
-    private Map<String,String> data = new HashMap<>();
+    private Map<String, String> data = new HashMap<>();
 
-    public void setProperty(String key,String val) {
-        data.putIfAbsent(key,val);
+    public void setProperty(String key, String val) {
+        data.putIfAbsent(key, val);
     }
 
     public String getProperty(String key) {
@@ -28,7 +26,7 @@ public class BaseDeployData {
         this.data = data;
     }
 
-    public void addData(Map<String,String> addedData) {
+    public void addData(Map<String, String> addedData) {
         this.data.putAll(addedData);
     }
 }

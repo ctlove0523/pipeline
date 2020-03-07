@@ -1,28 +1,27 @@
 package io.github.ctlove0523.pattern.pipeline.core.pipeline;
 
 import io.github.ctlove0523.pattern.pipeline.core.Lifecycle;
-import io.github.ctlove0523.pattern.pipeline.core.pipe.AbstractPipe;
+import io.github.ctlove0523.pattern.pipeline.core.pipe.Pipe;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Consumer;
 
 /**
  * @author chentong
  */
 @Getter
 @Setter
-public abstract class AbstractPipeLine<IN, OUT> implements Lifecycle<IN,OUT> {
+public abstract class AbstractPipeLine<IN, OUT> implements Pipeline<IN, OUT> {
     private String pipeLineName;
-    private List<AbstractPipe<IN, OUT>> pipes = new LinkedList<>();
-
+    private List<Pipe<IN, OUT>> pipes = new LinkedList<>();
 
     @Override
     public void prepare() {
-        Collections.sort(pipes);
+        pipes.sort(Comparator.comparing(Pipe::getOrder));
         pipes.forEach(Lifecycle::prepare);
     }
 
@@ -30,7 +29,7 @@ public abstract class AbstractPipeLine<IN, OUT> implements Lifecycle<IN,OUT> {
     public OUT start(IN input) {
         IN initInput = input;
         OUT result = null;
-        for (AbstractPipe<IN, OUT> pipe : pipes) {
+        for (Pipe<IN, OUT> pipe : pipes) {
             result = pipe.start(initInput);
             initInput = transform(result);
         }
@@ -46,7 +45,7 @@ public abstract class AbstractPipeLine<IN, OUT> implements Lifecycle<IN,OUT> {
     public OUT retry(IN input) {
         IN initInput = input;
         OUT result = null;
-        for (AbstractPipe<IN, OUT> pipe : pipes) {
+        for (Pipe<IN, OUT> pipe : pipes) {
             result = pipe.retry(initInput);
             initInput = transform(result);
         }
@@ -60,16 +59,17 @@ public abstract class AbstractPipeLine<IN, OUT> implements Lifecycle<IN,OUT> {
 
     /**
      * 输出到输入的转换
+     *
      * @param output 输出
      * @return 输入
      */
     public abstract IN transform(OUT output);
 
-    public void addPipe(AbstractPipe pipe) {
+    public void addPipe(Pipe<IN, OUT> pipe) {
         pipes.add(pipe);
     }
 
-    public void deletePipe(AbstractPipe pipe) {
+    public void deletePipe(Pipe<IN, OUT> pipe) {
         pipes.remove(pipe);
     }
 
@@ -77,7 +77,7 @@ public abstract class AbstractPipeLine<IN, OUT> implements Lifecycle<IN,OUT> {
         return pipes.size();
     }
 
-    public List<AbstractPipe> getPipes() {
+    public List<Pipe<IN, OUT>> getPipes() {
         return Collections.unmodifiableList(pipes);
     }
 }

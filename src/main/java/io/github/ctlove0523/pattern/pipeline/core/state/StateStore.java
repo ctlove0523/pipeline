@@ -2,6 +2,8 @@ package io.github.ctlove0523.pattern.pipeline.core.state;
 
 /**
  * pipeline,pipe和task状态持久化接口
+ *
+ * @author chentong
  */
 public interface StateStore {
     /**

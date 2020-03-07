@@ -5,7 +5,7 @@ import io.github.ctlove0523.pattern.pipeline.core.pipeline.AbstractPipeLine;
 /**
  * @author chentong
  */
-public class DeployPipelineImpl extends AbstractPipeLine<DeployInput,DeployOutput> {
+public class DeployPipelineImpl extends AbstractPipeLine<DeployInput, DeployOutput> {
     @Override
     public DeployInput transform(DeployOutput output) {
         DeployInput input = new DeployInput();

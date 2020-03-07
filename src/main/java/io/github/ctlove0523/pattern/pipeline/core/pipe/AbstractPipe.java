@@ -9,6 +9,7 @@ import io.github.ctlove0523.pattern.pipeline.utils.ExecutorUtils;
 import io.github.ctlove0523.pattern.pipeline.utils.SpringContextUtils;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
@@ -26,7 +27,8 @@ import java.util.stream.Collectors;
  */
 @Getter
 @Setter
-public abstract class AbstractPipe<IN, OUT> implements Comparable<AbstractPipe<IN, OUT>>, Pipe<IN, OUT> {
+@Slf4j
+public abstract class AbstractPipe<IN, OUT> implements Pipe<IN, OUT> {
     private String pipeName;
     private String priority;
     private List<Task<IN, OUT>> tasks = new LinkedList<>();
@@ -49,7 +51,7 @@ public abstract class AbstractPipe<IN, OUT> implements Comparable<AbstractPipe<I
         try {
             outputs.addAll(future.get());
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            log.warn("{} pipe start encounter exception {}", getPipeName(), e);
         }
         return mergeOutput(outputs);
     }
@@ -70,7 +72,7 @@ public abstract class AbstractPipe<IN, OUT> implements Comparable<AbstractPipe<I
         try {
             outputs.addAll(future.get());
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            log.warn("{} pipe start encounter exception {}", getPipeName(), e);
         }
         return mergeOutput(outputs);
     }
@@ -82,9 +84,9 @@ public abstract class AbstractPipe<IN, OUT> implements Comparable<AbstractPipe<I
 
     @Override
     public StateEnum getState() {
-        List<Integer> states = new ArrayList<>(tasks.size());
-        tasks.forEach(task -> states.add(task.getState().getOrder()));
-        return null;
+        List<StateEnum> states = new ArrayList<>(tasks.size());
+        tasks.forEach(task -> states.add(task.getState()));
+        return StateEnum.getState(states);
     }
 
     /**

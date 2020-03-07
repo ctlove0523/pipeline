@@ -7,14 +7,22 @@ import java.util.List;
  * @author chentong
  */
 
-public enum StateEnum {
-    /**成功完成*/
+public enum StateEnum implements Comparable<StateEnum> {
+    /**
+     * 成功完成
+     */
     FINISHED(0),
-    /**运行中*/
+    /**
+     * 运行中
+     */
     RUNNING(1),
-    /**未启动*/
+    /**
+     * 未启动
+     */
     UNPROCESSED(2),
-    /**失败*/
+    /**
+     * 失败
+     */
     FAILED(4);
     private int order;
 

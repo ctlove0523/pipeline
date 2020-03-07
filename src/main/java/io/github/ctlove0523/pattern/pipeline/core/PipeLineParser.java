@@ -3,6 +3,7 @@ package io.github.ctlove0523.pattern.pipeline.core;
 import io.github.ctlove0523.pattern.pipeline.core.deploy.DeployPipeImpl;
 import io.github.ctlove0523.pattern.pipeline.core.deploy.DeployPipelineImpl;
 import io.github.ctlove0523.pattern.pipeline.core.pipeline.AbstractPipeLine;
+import io.github.ctlove0523.pattern.pipeline.core.pipeline.Pipeline;
 import io.github.ctlove0523.pattern.pipeline.core.tasks.BaseTaskInfo;
 import org.apache.commons.digester3.Digester;
 import org.xml.sax.SAXException;
@@ -16,7 +17,7 @@ import java.util.Optional;
  * @author chentong
  */
 public class PipeLineParser {
-    public static Optional<AbstractPipeLine<?, ?>> parse(File file) {
+    public static Optional<Pipeline<?, ?>> parse(File file) {
         Digester digester = createDigester();
         AbstractPipeLine<?, ?> pipeLine = null;
         try {
@@ -27,7 +28,7 @@ public class PipeLineParser {
         return Optional.ofNullable(pipeLine);
     }
 
-    public static Optional<AbstractPipeLine> parse(InputStream is) {
+    public static Optional<Pipeline> parse(InputStream is) {
         Digester digester = createDigester();
         AbstractPipeLine pipeLine = null;
         try {

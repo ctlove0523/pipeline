@@ -5,5 +5,5 @@ package io.github.ctlove0523.pattern.pipeline.core.tasks;
  *
  * @author chentong
  */
-public abstract class AbstractTask<IN, OUT> extends BaseTaskInfo implements Task<IN,OUT> {
+public abstract class AbstractTask<IN, OUT> extends BaseTaskInfo implements Task<IN, OUT> {
 }
