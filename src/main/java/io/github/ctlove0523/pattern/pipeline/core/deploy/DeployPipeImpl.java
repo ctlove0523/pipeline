@@ -16,4 +16,9 @@ public class DeployPipeImpl extends AbstractPipe<DeployInput, DeployOutput> {
         }
         return output;
     }
+
+    @Override
+    public int getOrder() {
+        return 0;
+    }
 }

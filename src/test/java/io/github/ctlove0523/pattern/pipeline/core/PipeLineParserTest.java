@@ -10,20 +10,15 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
 public class PipeLineParserTest {
 
     @Test
     public void test_parse_returnSuccess() throws Exception {
-        File file = ResourceUtils.getFile("classpath:pipeline.xml");
-        Optional<AbstractPipeLine<?,?>> deployPipeline = PipeLineParser.parse(file);
-        Assertions.assertTrue(deployPipeline.isPresent());
-        Assertions.assertEquals(deployPipeline.get().getPipes().size(),2);
-        AbstractPipeLine<DeployInput, DeployOutput> pipeLine = (AbstractPipeLine<DeployInput, DeployOutput>)deployPipeline.get();
-        DeployInput input = new DeployInput();
-        input.setProperty("pwd","123456");
-        pipeLine.prepare();
-        pipeLine.start(input);
+        long begin = System.nanoTime();
+        TimeUnit.SECONDS.sleep(1);
+        System.out.println((System.nanoTime() - begin)/1000/1000);
     }
 }

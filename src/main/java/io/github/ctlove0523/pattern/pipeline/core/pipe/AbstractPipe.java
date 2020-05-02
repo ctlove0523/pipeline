@@ -5,6 +5,7 @@ import io.github.ctlove0523.pattern.pipeline.core.state.StateEnum;
 import io.github.ctlove0523.pattern.pipeline.core.tasks.AbstractTask;
 import io.github.ctlove0523.pattern.pipeline.core.tasks.BaseTaskInfo;
 import io.github.ctlove0523.pattern.pipeline.core.tasks.Task;
+import io.github.ctlove0523.pattern.pipeline.core.tasks.TaskAdaptor;
 import io.github.ctlove0523.pattern.pipeline.utils.ExecutorUtils;
 import io.github.ctlove0523.pattern.pipeline.utils.SpringContextUtils;
 import lombok.Getter;
@@ -107,7 +108,8 @@ public abstract class AbstractPipe<IN, OUT> implements Pipe<IN, OUT> {
             abstractTask.setTaskName(task.getTaskName());
             abstractTask.setTaskClass(task.getTaskClass());
             abstractTask.setTaskId(task.getTaskId());
-            tasks.add(abstractTask);
+            TaskAdaptor adaptor = new TaskAdaptor(abstractTask);
+            tasks.add(adaptor);
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -129,10 +131,5 @@ public abstract class AbstractPipe<IN, OUT> implements Pipe<IN, OUT> {
 
     public int size() {
         return tasks.size();
-    }
-
-    @Override
-    public int compareTo(AbstractPipe<IN, OUT> pipe) {
-        return Integer.parseInt(this.priority) - Integer.parseInt(pipe.getPriority());
     }
 }
